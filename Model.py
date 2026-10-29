@@ -72,7 +72,7 @@ class HyperChebyNet(nn.Module):
         result = F.relu(result)
         return result
 
-class TimeAvgDHGNN(nn.Module):
+class MTHGNN(nn.Module):
     """Full MTHGNN with global-local hypergraph and temporal contrastive encoders.
 
     Input: EEG differential-entropy segments of shape [batch, time, electrodes, bands].
@@ -86,7 +86,7 @@ class TimeAvgDHGNN(nn.Module):
                  num_hyperedges: int = 10,
                  num_classes: int = 3,
                  dropout = 0.3):
-        super(TimeAvgDHGNN, self).__init__()
+        super(MTHGNN, self).__init__()
         self.in_channels = in_channels
         self.num_electrodes = num_electrodes
         self.hid_channels = hid_channels
@@ -431,5 +431,3 @@ class TimeAvgDHGNN(nn.Module):
         pos_map_flat = (base + pos_map).contiguous().view(-1)
         return z1_t, z2_t, pos_map_flat
 
-
-MTHGNN = TimeAvgDHGNN
