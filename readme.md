@@ -15,7 +15,7 @@ MTHGNN models emotion-related EEG activity through dynamic hypergraphs, global-l
 
 ## Model file
 
-`Model.py` contains the complete model architecture. The published class `MTHGNN` is an alias of the original `TimeAvgDHGNN` class. The full global-local branch and Transformer are always active; ablation switches have been removed.
+`Model.py` implements the MTHGNN architecture. Import `MTHGNN` to build the model.
 
 The model expects an already segmented differential-entropy tensor with shape `[batch, time_steps, 62, 5]`. Its `forward` method returns class logits with shape `[batch, num_classes]`.
 
@@ -37,16 +37,4 @@ logits = model(segments)
 print(logits.shape)  # torch.Size([2, 3])
 ```
 
-The full model uses an entropy-scaling coefficient of 5, a reliability mixing coefficient of 0.5, and a stabilizing term of `1e-4`. `encode_views` and `encode_temporal_views` provide the embeddings used by structural and temporal contrastive learning, respectively.
-
-## Reported results
-
-The accepted manuscript reports the following cross-subject LOSO results (mean ± standard deviation):
-
-| Dataset | Accuracy | Macro-F1 |
-| --- | ---: | ---: |
-| SEED | 0.8610 ± 0.0504 | 0.8566 ± 0.0517 |
-| SEED-IV | 0.6980 ± 0.0810 | 0.6941 ± 0.0832 |
-| SEED-V | 0.7262 ± 0.0814 | 0.6907 ± 0.1014 |
-
-This repository publishes the core model file and its architecture figure. The dataset preprocessing, training pipeline, and baseline implementations are not included.
+The model uses an entropy-scaling coefficient of 5, a reliability mixing coefficient of 0.5, and a stabilizing term of `1e-4`. `encode_views` and `encode_temporal_views` provide the embeddings used by structural and temporal contrastive learning, respectively.
